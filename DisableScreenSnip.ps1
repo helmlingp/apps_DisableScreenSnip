@@ -11,7 +11,7 @@
     Requires machine to restart to take effect
     https://github.com/helmlingp/apps_DisableScreenSnip
     
-    Install command: powershell.exe -ep bypass -file .\InstallOneDrive.ps1
+    Install command: powershell.exe -ep bypass -file .\DisaleScreenSnip.ps1
     Uninstall command: .
     Install Complete: Registry DWORD value exists - HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\TabletPC\DisableSnippingTool
     
