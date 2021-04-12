@@ -11,7 +11,7 @@
     Requires machine to restart to take effect
     https://github.com/helmlingp/apps_DisableScreenSnip
     
-    Install command: powershell.exe -ep bypass -file .\DisaleScreenSnip.ps1
+    Install command: powershell.exe -ep bypass -file .\DisableScreenSnip.ps1
     Uninstall command: .
     Install Complete: Registry DWORD value exists - HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\TabletPC\DisableSnippingTool
     
@@ -45,7 +45,7 @@ write-host "add run key"
 $keyrun = "Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run"
 if(Get-Item -Path $keyrun -ErrorAction Ignore){$true}else{New-Item -Path $keyrun -ErrorAction SilentlyContinue -Force}
 $keynamerun = "DisableScreenSnip"
-$customscriptfolder = "$env:ProgramData\DisableScreenSnip"
+$customscriptfolder = "$env:ProgramData\CustomScripts"
 $keyvaluerun = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -ep Bypass -Windowstyle Hidden -File $customscriptfolder\DisableScreenSnip.ps1"
 New-ItemProperty -Path $keyrun -Name $keynamerun -Type String -Value $keyvaluerun -ErrorAction SilentlyContinue -Force
 
@@ -73,7 +73,7 @@ $DisableScreenSnip = @'
 if(Get-Item -Path $customscriptfolder -ErrorAction Ignore){$true}else{New-Item -Path $customscriptfolder -ItemType Directory -ErrorAction SilentlyContinue -Force};
 Out-File -FilePath "$customscriptfolder\DisableScreenSnip.ps1" -Encoding unicode -Force -InputObject $DisableScreenSnip -Confirm:$false
 
-#Do for Current User using ScriptBlock
+#Do for Current User
 #Disable Quick Access
 write-host "Disable Quick Access"
 $key = "Registry::HKEY_CURRENT_USER\Control Panel\Quick Actions\Control Center\Unpinned";
@@ -99,7 +99,7 @@ $DefaultProfile.SID = ".DEFAULT"
 $DefaultProfile.Userhive = "C:\Users\Public\NTuser.dat"
 $UserProfiles += $DefaultProfile
 
-# Loop through each profile on the machine</p>
+# Loop through each profile on the machine
 Foreach ($UserProfile in $UserProfiles) {
     # Load User ntuser.dat if it's not already loaded
     If (($ProfileWasLoaded = Test-Path "Registry::HKEY_USERS\$($UserProfile.SID)") -eq $false) {
